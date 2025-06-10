@@ -25,7 +25,8 @@ export default function HomePage() {
             Your Journey to a Healthier You Starts Here
           </h1>
           <p className="mt-6 text-xl text-gray-300 max-w-3xl">
-            Join Treningsglede and discover a supportive community dedicated to helping you achieve your fitness goals, 24/7.
+            Join Treningsglede and discover a supportive community dedicated to
+            helping you achieve your fitness goals, 24/7.
           </p>
           <div className="mt-10">
             {session ? (
@@ -90,7 +91,8 @@ export default function HomePage() {
                   Personalized Workouts
                 </h3>
                 <p className="mt-2 text-base text-gray-600">
-                  Get customized workout plans tailored to your goals and fitness level.
+                  Get customized workout plans tailored to your goals and
+                  fitness level.
                 </p>
               </div>
             </div>
@@ -117,7 +119,8 @@ export default function HomePage() {
                   Community Support
                 </h3>
                 <p className="mt-2 text-base text-gray-600">
-                  Join a supportive community of like-minded individuals on their fitness journey.
+                  Join a supportive community of like-minded individuals on
+                  their fitness journey.
                 </p>
               </div>
             </div>
@@ -144,7 +147,8 @@ export default function HomePage() {
                   Progress Tracking
                 </h3>
                 <p className="mt-2 text-base text-gray-600">
-                  Monitor your progress with detailed analytics and achievement tracking.
+                  Monitor your progress with detailed analytics and achievement
+                  tracking.
                 </p>
               </div>
             </div>
@@ -152,24 +156,226 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="bg-indigo-700">
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-          <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-            <span className="block">Ready to start your fitness journey?</span>
-            <span className="block text-indigo-200">
-              Join Treningsglede today.
-            </span>
-          </h2>
-          <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
-            <div className="inline-flex rounded-md shadow">
-              <Link
-                href={session ? "/profile" : "/auth/register"}
-                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50"
-              >
-                {session ? "View Profile" : "Get Started"}
-              </Link>
+      {/* Coach-Guided Goals Section */}
+      <div className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+              Achieve Your Goals with Expert Guidance
+            </h2>
+            <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+              Our experienced coaches are dedicated to helping you reach your
+              fitness goals through personalized attention and proven strategies
+            </p>
+          </div>
+
+          <div className="mt-20 grid grid-cols-1 gap-12 lg:grid-cols-2">
+            {/* Left Column - Coach Approach */}
+            <div className="space-y-8">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-600 text-white">
+                    <svg
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-lg font-medium text-gray-900">
+                    Personalized Goal Setting
+                  </h3>
+                  <p className="mt-2 text-base text-gray-600">
+                    Work with your coach to set realistic, achievable goals
+                    tailored to your aspirations and current fitness level.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-600 text-white">
+                    <svg
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-lg font-medium text-gray-900">
+                    Customized Training Plans
+                  </h3>
+                  <p className="mt-2 text-base text-gray-600">
+                    Receive a training program specifically designed for your
+                    goals, with regular adjustments as you progress.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-600 text-white">
+                    <svg
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-lg font-medium text-gray-900">
+                    Ongoing Support & Accountability
+                  </h3>
+                  <p className="mt-2 text-base text-gray-600">
+                    Regular check-ins and progress reviews keep you motivated
+                    and on track to achieve your goals.
+                  </p>
+                </div>
+              </div>
             </div>
+
+            {/* Right Column - Benefits */}
+            <div className="relative">
+              <div className="aspect-w-5 aspect-h-3 rounded-lg shadow-lg overflow-hidden">
+                <Image
+                  src="/images/trainers/reaching-out.jpg"
+                  alt="Coach reaching out to client"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Centered Checklist */}
+          <div className="mt-16 max-w-2xl mx-auto">
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <h3 className="text-xl font-medium text-gray-900 mb-6 text-center">
+                Why Work with a Coach?
+              </h3>
+              <ul className="space-y-4">
+                <li className="flex items-start">
+                  <svg
+                    className="h-6 w-6 text-green-500 mr-3 flex-shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-gray-600">
+                    Expert guidance to prevent injuries and ensure proper form
+                  </span>
+                </li>
+                <li className="flex items-start">
+                  <svg
+                    className="h-6 w-6 text-green-500 mr-3 flex-shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-gray-600">
+                    Personalized nutrition and lifestyle advice
+                  </span>
+                </li>
+                <li className="flex items-start">
+                  <svg
+                    className="h-6 w-6 text-green-500 mr-3 flex-shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-gray-600">
+                    Motivation and accountability to stay consistent
+                  </span>
+                </li>
+                <li className="flex items-start">
+                  <svg
+                    className="h-6 w-6 text-green-500 mr-3 flex-shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-gray-600">
+                    Adaptable programs that evolve with your progress
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-12 flex justify-center">
+            <Link
+              href="/ansatte"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm"
+            >
+              Meet Our Coaches
+              <svg
+                className="ml-2 -mr-1 h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
       </div>

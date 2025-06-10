@@ -25,6 +25,7 @@ export default function RegisterPage() {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const name = formData.get("name") as string;
+    const type = formData.get("type") as string;
 
     try {
       const { data, error } = await supabase.auth.signUp({
@@ -33,6 +34,7 @@ export default function RegisterPage() {
         options: {
           data: {
             name,
+            type,
           },
         },
       });
@@ -137,6 +139,26 @@ export default function RegisterPage() {
                 <p className="mt-2 text-sm text-gray-500">
                   Must be at least 6 characters long
                 </p>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="type"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Velg medlemskapstype
+                </label>
+                <div className="mt-1">
+                  <select
+                    id="type"
+                    name="type"
+                    required
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  >
+                    <option value="egentrening">Egentrening</option>
+                    <option value="pt">Personlig trener</option>
+                  </select>
+                </div>
               </div>
 
               {error && (

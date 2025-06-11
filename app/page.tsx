@@ -10,7 +10,7 @@ export default function HomePage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <div className="relative bg-gray-900">
+      <div className="relative bg-neutral-900">
         <div className="absolute inset-0">
           <Image
             src="/images/hero-bg.jpg"
@@ -24,7 +24,7 @@ export default function HomePage() {
           <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
             Your Journey to a Healthier You Starts Here
           </h1>
-          <p className="mt-6 text-xl text-gray-300 max-w-3xl">
+          <p className="mt-6 text-xl text-neutral-300 max-w-3xl">
             Join Treningsglede and discover a supportive community dedicated to
             helping you achieve your fitness goals, 24/7.
           </p>
@@ -32,7 +32,7 @@ export default function HomePage() {
             {session ? (
               <Link
                 href="/profile"
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-900 hover:bg-violet-900"
               >
                 View Your Profile
               </Link>
@@ -40,13 +40,13 @@ export default function HomePage() {
               <div className="space-x-4">
                 <Link
                   href="/auth/register"
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-900 hover:bg-violet-900"
                 >
                   Get Started
                 </Link>
                 <Link
                   href="/auth/login"
-                  className="inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-gray-700"
+                  className="inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-neutral-700"
                 >
                   Sign In
                 </Link>
@@ -60,10 +60,10 @@ export default function HomePage() {
       <div className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-extrabold text-neutral-900 sm:text-4xl">
               Why Choose Treningsglede?
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-neutral-600">
               Everything you need to achieve your fitness goals
             </p>
           </div>
@@ -72,7 +72,7 @@ export default function HomePage() {
             {/* Feature 1 */}
             <div className="relative p-6 bg-white rounded-lg shadow-lg">
               <div className="text-center">
-                <div className="inline-flex items-center justify-center h-12 w-12 rounded-md bg-indigo-600 text-white mb-4">
+                <div className="inline-flex items-center justify-center h-12 w-12 rounded-md bg-violet-900 text-white mb-4">
                   <svg
                     className="h-6 w-6"
                     fill="none"
@@ -87,10 +87,10 @@ export default function HomePage() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-lg font-medium text-gray-900">
+                <h3 className="text-lg font-medium text-neutral-900">
                   Personalized Workouts
                 </h3>
-                <p className="mt-2 text-base text-gray-600">
+                <p className="mt-2 text-base text-neutral-600">
                   Get customized workout plans tailored to your goals and
                   fitness level.
                 </p>
@@ -100,7 +100,7 @@ export default function HomePage() {
             {/* Feature 2 */}
             <div className="relative p-6 bg-white rounded-lg shadow-lg">
               <div className="text-center">
-                <div className="inline-flex items-center justify-center h-12 w-12 rounded-md bg-indigo-600 text-white mb-4">
+                <div className="inline-flex items-center justify-center h-12 w-12 rounded-md bg-violet-900 text-white mb-4">
                   <svg
                     className="h-6 w-6"
                     fill="none"
@@ -115,10 +115,10 @@ export default function HomePage() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-lg font-medium text-gray-900">
+                <h3 className="text-lg font-medium text-neutral-900">
                   Community Support
                 </h3>
-                <p className="mt-2 text-base text-gray-600">
+                <p className="mt-2 text-base text-neutral-600">
                   Join a supportive community of like-minded individuals on
                   their fitness journey.
                 </p>
@@ -128,7 +128,7 @@ export default function HomePage() {
             {/* Feature 3 */}
             <div className="relative p-6 bg-white rounded-lg shadow-lg">
               <div className="text-center">
-                <div className="inline-flex items-center justify-center h-12 w-12 rounded-md bg-indigo-600 text-white mb-4">
+                <div className="inline-flex items-center justify-center h-12 w-12 rounded-md bg-violet-900 text-white mb-4">
                   <svg
                     className="h-6 w-6"
                     fill="none"
@@ -143,10 +143,10 @@ export default function HomePage() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-lg font-medium text-gray-900">
+                <h3 className="text-lg font-medium text-neutral-900">
                   Progress Tracking
                 </h3>
-                <p className="mt-2 text-base text-gray-600">
+                <p className="mt-2 text-base text-neutral-600">
                   Monitor your progress with detailed analytics and achievement
                   tracking.
                 </p>
@@ -157,13 +157,13 @@ export default function HomePage() {
       </div>
 
       {/* Coach-Guided Goals Section */}
-      <div className="py-24 bg-gray-50">
+      <div className="py-24 bg-neutral-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-extrabold text-neutral-900 sm:text-4xl">
               Achieve Your Goals with Expert Guidance
             </h2>
-            <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="mt-4 text-lg text-neutral-600 max-w-3xl mx-auto">
               Our experienced coaches are dedicated to helping you reach your
               fitness goals through personalized attention and proven strategies
             </p>
@@ -174,7 +174,7 @@ export default function HomePage() {
             <div className="space-y-8">
               <div className="flex">
                 <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-600 text-white">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-violet-900 text-white">
                     <svg
                       className="h-6 w-6"
                       fill="none"
@@ -191,10 +191,10 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">
+                  <h3 className="text-lg font-medium text-neutral-900">
                     Personalized Goal Setting
                   </h3>
-                  <p className="mt-2 text-base text-gray-600">
+                  <p className="mt-2 text-base text-neutral-600">
                     Work with your coach to set realistic, achievable goals
                     tailored to your aspirations and current fitness level.
                   </p>
@@ -203,7 +203,7 @@ export default function HomePage() {
 
               <div className="flex">
                 <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-600 text-white">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-violet-900 text-white">
                     <svg
                       className="h-6 w-6"
                       fill="none"
@@ -220,10 +220,10 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">
+                  <h3 className="text-lg font-medium text-neutral-900">
                     Customized Training Plans
                   </h3>
-                  <p className="mt-2 text-base text-gray-600">
+                  <p className="mt-2 text-base text-neutral-600">
                     Receive a training program specifically designed for your
                     goals, with regular adjustments as you progress.
                   </p>
@@ -232,7 +232,7 @@ export default function HomePage() {
 
               <div className="flex">
                 <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-600 text-white">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-violet-900 text-white">
                     <svg
                       className="h-6 w-6"
                       fill="none"
@@ -249,10 +249,10 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">
+                  <h3 className="text-lg font-medium text-neutral-900">
                     Ongoing Support & Accountability
                   </h3>
-                  <p className="mt-2 text-base text-gray-600">
+                  <p className="mt-2 text-base text-neutral-600">
                     Regular check-ins and progress reviews keep you motivated
                     and on track to achieve your goals.
                   </p>
@@ -276,7 +276,7 @@ export default function HomePage() {
           {/* Centered Checklist */}
           <div className="mt-16 max-w-2xl mx-auto">
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <h3 className="text-xl font-medium text-gray-900 mb-6 text-center">
+              <h3 className="text-xl font-medium text-neutral-900 mb-6 text-center">
                 Why Work with a Coach?
               </h3>
               <ul className="space-y-4">
@@ -294,7 +294,7 @@ export default function HomePage() {
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
-                  <span className="text-gray-600">
+                  <span className="text-neutral-600">
                     Expert guidance to prevent injuries and ensure proper form
                   </span>
                 </li>
@@ -312,7 +312,7 @@ export default function HomePage() {
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
-                  <span className="text-gray-600">
+                  <span className="text-neutral-600">
                     Personalized nutrition and lifestyle advice
                   </span>
                 </li>
@@ -330,7 +330,7 @@ export default function HomePage() {
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
-                  <span className="text-gray-600">
+                  <span className="text-neutral-600">
                     Motivation and accountability to stay consistent
                   </span>
                 </li>
@@ -348,7 +348,7 @@ export default function HomePage() {
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
-                  <span className="text-gray-600">
+                  <span className="text-neutral-600">
                     Adaptable programs that evolve with your progress
                   </span>
                 </li>
@@ -359,7 +359,7 @@ export default function HomePage() {
           <div className="mt-12 flex justify-center">
             <Link
               href="/ansatte"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-900 hover:bg-violet-900 shadow-sm"
             >
               Meet Our Coaches
               <svg

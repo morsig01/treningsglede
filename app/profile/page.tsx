@@ -159,8 +159,8 @@ export default function ProfilePage() {
   const renderProfileTab = () => (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900">Profilinnstillinger</h2>
-        <p className="mt-1 text-sm text-gray-600">
+        <h2 className="text-2xl font-bold text-neutral-900">Profilinnstillinger</h2>
+        <p className="mt-1 text-sm text-neutral-600">
           Oppdater din profilinformasjon og passord.
         </p>
       </div>
@@ -180,7 +180,7 @@ export default function ProfilePage() {
       {/* Profile Info */}
       <form onSubmit={handleUpdateProfile} className="bg-white p-6 rounded-lg shadow space-y-6">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="email" className="block text-sm font-medium text-neutral-700">
             Email
           </label>
           <input
@@ -188,12 +188,12 @@ export default function ProfilePage() {
             id="email"
             value={session.user.email || ""}
             disabled
-            className="mt-1 block w-full px-3 py-2 border rounded-md bg-gray-50 text-black sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border rounded-md bg-neutral-50 text-black sm:text-sm"
           />
         </div>
 
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="name" className="block text-sm font-medium text-neutral-700">
             Name
           </label>
           <input
@@ -201,14 +201,14 @@ export default function ProfilePage() {
             name="name"
             id="name"
             defaultValue={session.user.name || ""}
-            className="mt-1 block w-full px-3 py-2 border text-black rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border text-black rounded-md focus:ring-violet-900 focus:border-violet-900 sm:text-sm"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+          className="w-full py-2 px-4 bg-violet-900 text-white rounded-md hover:bg-violet-900 focus:ring-2 focus:ring-violet-900 disabled:opacity-50"
         >
           {loading ? "Updating..." : "Update Profile"}
         </button>
@@ -217,7 +217,7 @@ export default function ProfilePage() {
       {/* Password Change */}
       <form onSubmit={handleChangePassword} className="bg-white p-6 rounded-lg shadow space-y-6">
         <div>
-          <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="currentPassword" className="block text-sm font-medium text-neutral-700">
             Current Password
           </label>
           <input
@@ -225,12 +225,12 @@ export default function ProfilePage() {
             name="currentPassword"
             id="currentPassword"
             required
-            className="mt-1 block w-full px-3 py-2 border rounded-md text-black focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border rounded-md text-black focus:ring-violet-900 focus:border-violet-900 sm:text-sm"
           />
         </div>
 
         <div>
-          <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="newPassword" className="block text-sm font-medium text-neutral-700">
             New Password
           </label>
           <input
@@ -239,14 +239,14 @@ export default function ProfilePage() {
             id="newPassword"
             required
             minLength={6}
-            className="mt-1 block w-full px-3 py-2 border rounded-md text-black focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border rounded-md text-black focus:ring-violet-900 focus:border-violet-900 sm:text-sm"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+          className="w-full py-2 px-4 bg-violet-900 text-white rounded-md hover:bg-violet-900 focus:ring-2 focus:ring-violet-900 disabled:opacity-50"
         >
           {loading ? "Updating..." : "Change Password"}
         </button>
@@ -257,8 +257,8 @@ export default function ProfilePage() {
   const renderGruppetimerTab = () => (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900">Mine gruppetimer</h2>
-        <p className="mt-1 text-sm text-gray-600">
+        <h2 className="text-2xl font-bold text-neutral-900">Mine gruppetimer</h2>
+        <p className="mt-1 text-sm text-neutral-600">
           Oversikt over dine påmeldte gruppetimer.
         </p>
       </div>
@@ -269,19 +269,19 @@ export default function ProfilePage() {
         <>
           {/* Upcoming Sessions */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Kommende timer</h3>
+            <h3 className="text-lg font-semibold text-neutral-900">Kommende timer</h3>
             {upcomingSessions.length === 0 ? (
-              <p className="text-gray-600">Ingen kommende timer</p>
+              <p className="text-neutral-600">Ingen kommende timer</p>
             ) : (
               <div className="space-y-3">
                 {upcomingSessions.map((reg) => {
                   const session = getSessionInfo(reg.session_id);
                   return (
                     <div key={reg.id} 
-                         className="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
-                      <div className="font-medium text-indigo-900">{session?.title}</div>
-                      <div className="text-sm text-indigo-700">{formatDate(reg.session_date)}</div>
-                      <div className="text-sm text-indigo-600">Instruktør: {session?.instructor}</div>
+                         className="bg-violet-50 p-4 rounded-lg border border-violet-100">
+                      <div className="font-medium text-violet-900">{session?.title}</div>
+                      <div className="text-sm text-violet-900">{formatDate(reg.session_date)}</div>
+                      <div className="text-sm text-violet-900">Instruktør: {session?.instructor}</div>
                     </div>
                   );
                 })}
@@ -291,19 +291,19 @@ export default function ProfilePage() {
 
           {/* Past Sessions */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Tidligere timer</h3>
+            <h3 className="text-lg font-semibold text-neutral-900">Tidligere timer</h3>
             {pastSessions.length === 0 ? (
-              <p className="text-gray-600">Ingen tidligere timer</p>
+              <p className="text-neutral-600">Ingen tidligere timer</p>
             ) : (
               <div className="space-y-3">
                 {pastSessions.slice(0, 5).map((reg) => {
                   const session = getSessionInfo(reg.session_id);
                   return (
                     <div key={reg.id} 
-                         className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                      <div className="font-medium text-gray-900">{session?.title}</div>
-                      <div className="text-sm text-gray-700">{formatDate(reg.session_date)}</div>
-                      <div className="text-sm text-gray-600">Instruktør: {session?.instructor}</div>
+                         className="bg-neutral-50 p-4 rounded-lg border border-neutral-200">
+                      <div className="font-medium text-neutral-900">{session?.title}</div>
+                      <div className="text-sm text-neutral-700">{formatDate(reg.session_date)}</div>
+                      <div className="text-sm text-neutral-600">Instruktør: {session?.instructor}</div>
                     </div>
                   );
                 })}
@@ -316,7 +316,7 @@ export default function ProfilePage() {
   );
 
   return (
-    <div className="min-h-[90vh] bg-gray-50">
+    <div className="min-h-[90vh] bg-neutral-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Sidebar */}
@@ -326,8 +326,8 @@ export default function ProfilePage() {
                 onClick={() => setActiveTab('profile')}
                 className={`w-full text-left px-4 py-2 rounded-md transition-colors ${
                   activeTab === 'profile'
-                    ? 'bg-indigo-50 text-indigo-700 font-medium'
-                    : 'text-gray-600 hover:bg-gray-50'
+                    ? 'bg-violet-50 text-violet-900 font-medium'
+                    : 'text-neutral-600 hover:bg-neutral-50'
                 }`}
               >
                 Profilinnstillinger
@@ -336,8 +336,8 @@ export default function ProfilePage() {
                 onClick={() => setActiveTab('gruppetimer')}
                 className={`w-full text-left px-4 py-2 rounded-md transition-colors ${
                   activeTab === 'gruppetimer'
-                    ? 'bg-indigo-50 text-indigo-700 font-medium'
-                    : 'text-gray-600 hover:bg-gray-50'
+                    ? 'bg-violet-50 text-violet-900 font-medium'
+                    : 'text-neutral-600 hover:bg-neutral-50'
                 }`}
               >
                 Gruppetimer

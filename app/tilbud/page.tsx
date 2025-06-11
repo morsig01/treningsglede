@@ -64,7 +64,7 @@ export default function OffersPage() {
         <h1 className="text-3xl md:text-5xl font-extrabold text-center  mb-2">
           TRENINGSTILBUD DESIGNET FOR Å HJELPE DEG
         </h1>
-        <h2 className="text-2xl md:text-4xl font-extrabold text-center mb-12 text-purple-500">
+        <h2 className="text-2xl md:text-4xl font-extrabold text-center mb-12 text-violet-900">
           NÅ DINE MÅL.
         </h2>
         <div className="space-y-16 p-6">
@@ -93,7 +93,7 @@ export default function OffersPage() {
                 ))}
                 <ul className="mb-6 mt-4 space-y-2">
                   {offer.features.map((feature, i) => (
-                    <li key={i} className="flex items-center text-purple-700 font-medium">
+                    <li key={i} className="flex items-center text-violet-900 font-medium">
                       <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
@@ -103,7 +103,7 @@ export default function OffersPage() {
                 </ul>
                 <Link 
                   href={offer.href}
-                  className="inline-block bg-purple-500 text-white font-bold text-center px-6 py-3 rounded-xl shadow hover:bg-[#1bc9e5] transition-colors"
+                  className="inline-block bg-violet-900 text-white font-bold text-center px-6 py-3 rounded-xl shadow hover:bg-[#1bc9e5] transition-colors"
                 >
                   {offer.button}
                 </Link>

@@ -49,11 +49,11 @@ export default function TrainersPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-neutral-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-            <p className="mt-4 text-lg text-gray-600">Loading trainers...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-900 mx-auto"></div>
+            <p className="mt-4 text-lg text-neutral-600">Loading trainers...</p>
           </div>
         </div>
       </div>
@@ -62,7 +62,7 @@ export default function TrainersPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-neutral-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <div className="text-red-600 text-lg">{error}</div>
@@ -73,13 +73,13 @@ export default function TrainersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-neutral-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center">
-          <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold text-neutral-900 sm:text-4xl">
             Our Expert Trainers
           </h1>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-4 text-lg text-neutral-600">
             Meet our team of dedicated fitness professionals
           </p>
         </div>
@@ -101,21 +101,21 @@ export default function TrainersPage() {
                 />
               </div>
               <div className="p-6">
-                <h2 className="text-xl font-semibold text-gray-900">
+                <h2 className="text-xl font-semibold text-neutral-900">
                   {trainer.name}
                 </h2>
-                <p className="mt-1 text-sm text-indigo-600">{trainer.role}</p>
-                <p className="mt-4 text-gray-600">{trainer.bio}</p>
+                <p className="mt-1 text-sm text-violet-900">{trainer.role}</p>
+                <p className="mt-4 text-neutral-600">{trainer.bio}</p>
                 {trainer.specialties && trainer.specialties.length > 0 && (
                   <div className="mt-4">
-                    <h3 className="text-sm font-medium text-gray-900">
+                    <h3 className="text-sm font-medium text-neutral-900">
                       Specialties:
                     </h3>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {trainer.specialties.map((specialty, index) => (
                         <span
                           key={index}
-                          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800"
+                          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-violet-100 text-violet-900"
                         >
                           {specialty}
                         </span>
@@ -130,7 +130,7 @@ export default function TrainersPage() {
 
         {trainers.length === 0 && (
           <div className="text-center mt-12">
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-neutral-600">
               No trainers available at the moment.
             </p>
           </div>

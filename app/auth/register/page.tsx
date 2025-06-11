@@ -49,7 +49,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-neutral-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
           <Link href="/" className="inline-block">
@@ -61,14 +61,14 @@ export default function RegisterPage() {
               className="mx-auto"
             />
           </Link>
-          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-3xl font-extrabold text-neutral-900">
             Create your account
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-neutral-600">
             Already have an account?{" "}
             <Link
               href="/auth/login"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+              className="font-medium text-violet-900 hover:text-violet-900"
             >
               Sign in
             </Link>
@@ -81,7 +81,7 @@ export default function RegisterPage() {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-neutral-700"
                 >
                   Full name
                 </label>
@@ -91,7 +91,7 @@ export default function RegisterPage() {
                     name="name"
                     type="text"
                     required
-                    className="appearance-none text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="appearance-none text-black block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-violet-900 focus:border-violet-900 sm:text-sm"
                   />
                 </div>
               </div>
@@ -99,7 +99,7 @@ export default function RegisterPage() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-neutral-700"
                 >
                   Email address
                 </label>
@@ -110,7 +110,7 @@ export default function RegisterPage() {
                     type="email"
                     autoComplete="email"
                     required
-                    className="appearance-none text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="appearance-none text-black block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-violet-900 focus:border-violet-900 sm:text-sm"
                   />
                 </div>
               </div>
@@ -118,7 +118,7 @@ export default function RegisterPage() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-neutral-700"
                 >
                   Password
                 </label>
@@ -130,10 +130,10 @@ export default function RegisterPage() {
                     autoComplete="new-password"
                     required
                     minLength={6}
-                    className="appearance-none text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="appearance-none text-black block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-violet-900 focus:border-violet-900 sm:text-sm"
                   />
                 </div>
-                <p className="mt-2 text-sm text-gray-500">
+                <p className="mt-2 text-sm text-neutral-500">
                   Must be at least 6 characters long
                 </p>
               </div>
@@ -141,7 +141,7 @@ export default function RegisterPage() {
               <div>
                 <label
                   htmlFor="type"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-neutral-700"
                 >
                   Velg medlemskapstype
                 </label>
@@ -150,7 +150,7 @@ export default function RegisterPage() {
                     id="type"
                     name="type"
                     required
-                    className="block w-full px-3 py-2 text-black border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="block w-full px-3 py-2 text-black border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-900 focus:border-violet-900 sm:text-sm"
                   >
                     <option value="egentrening">Egentrening</option>
                     <option value="pt">Personlig trener</option>
@@ -162,7 +162,7 @@ export default function RegisterPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-violet-900 hover:bg-violet-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-900 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? "Creating account..." : "Create account"}
                 </button>
@@ -172,21 +172,21 @@ export default function RegisterPage() {
             <div className="mt-6">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
+                  <div className="w-full border-t border-neutral-300" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">
+                  <span className="px-2 bg-white text-neutral-500">
                     By signing up, you agree to our{" "}
                     <Link
                       href="/terms"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                      className="font-medium text-violet-900 hover:text-violet-900"
                     >
                       Terms of Service
                     </Link>{" "}
                     and{" "}
                     <Link
                       href="/privacy"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                      className="font-medium text-violet-900 hover:text-violet-900"
                     >
                       Privacy Policy
                     </Link>

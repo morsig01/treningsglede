@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
 
   const { data, error } = await supabase
     .from("registrations")
-    .select("session_id, session_date")
+    .select("id, session_id, session_date")
     .eq("user_id", user_id)
     .gte("session_date", from)
     .lte("session_date", to);

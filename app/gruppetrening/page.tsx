@@ -128,23 +128,23 @@ export default function GrupptreningPage() {
         </h1>
         <div className="bg-white/10 rounded-xl shadow p-6 mb-6">
           <div className="grid grid-cols-7 gap-2 mb-2">
-            {weekdayNames.map((name) => (
-              <div key={name} className="text-center text-[#2DE1FC] font-bold">
+            {weekdayNames.map((name, index) => (
+              <div key={`weekday-${index}`} className="text-center text-[#2DE1FC] font-bold">
                 {name.slice(0, 2)}
               </div>
             ))}
           </div>
-          {weeks.map((week, i) => (
-            <div key={i} className="grid grid-cols-7 gap-2 mb-2">
-              {week.map((date, j) => {
-                if (!date) return <div key={j} />;
+          {weeks.map((week, weekIndex) => (
+            <div key={`week-${weekIndex}`} className="grid grid-cols-7 gap-2 mb-2">
+              {week.map((date, dayIndex) => {
+                if (!date) return <div key={`empty-${weekIndex}-${dayIndex}`} />;
                 const sessionType = sessionTypes.find((s) => s.weekday === date.getDay());
                 const dateStr = date.toISOString().slice(0, 10);
                 const isRegistered = isUserRegistered(dateStr, sessionType?.id ?? -1);
                 if (sessionType) {
                   return (
                     <button
-                      key={j}
+                      key={`session-${dateStr}-${sessionType.id}`}
                       onClick={() => session && !isRegistered && handleRegister(dateStr, sessionType)}
                       disabled={isRegistered || !session}
                       className={`rounded-lg p-2 min-h-[80px] flex flex-col items-center justify-between w-full h-full focus:outline-none transition-colors duration-200
@@ -167,7 +167,7 @@ export default function GrupptreningPage() {
                   );
                 }
                 return (
-                  <div key={j} className="bg-white/20 rounded-lg p-2 min-h-[80px] flex flex-col items-center justify-between" >
+                  <div key={`date-${dateStr}`} className="bg-white/20 rounded-lg p-2 min-h-[80px] flex flex-col items-center justify-between" >
                     <div className="text-white font-bold">{date.getDate()}</div>
                   </div>
                 );

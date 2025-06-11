@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -40,25 +39,16 @@ export default function ResetPasswordPage() {
     <div className="min-h-screen bg-neutral-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
-          <Link href="/" className="inline-block">
-            <Image
-              src="/images/logo.png"
-              alt="Treningsglede"
-              width={200}
-              height={200}
-              className="mx-auto"
-            />
-          </Link>
           <h2 className="mt-6 text-3xl font-extrabold text-neutral-900">
-            Reset your password
+            Bytte Passord
           </h2>
           <p className="mt-2 text-sm text-neutral-600">
-            Don&apos;t have an account?{" "}
+            Har du ikke bruker?{" "}
             <Link
               href="/auth/register"
               className="font-medium text-violet-900 hover:text-violet-900"
             >
-              Sign up
+              Registrer deg her
             </Link>
           </p>
         </div>
@@ -70,12 +60,11 @@ export default function ResetPasswordPage() {
                 <div className="flex">
                   <div className="ml-3">
                     <h3 className="text-sm font-medium text-green-800">
-                      Check your email
+                      Sjekk mailen din
                     </h3>
                     <div className="mt-2 text-sm text-green-700">
                       <p>
-                        We&apos;ve sent you a password reset link. Please check your
-                        email and follow the instructions to reset your password.
+                        Vi har sendt deg en passord-endrings link. Sjekk mailen din og følg stegene for å endre passord.
                       </p>
                     </div>
                   </div>
@@ -88,7 +77,7 @@ export default function ResetPasswordPage() {
                     htmlFor="email"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Email address
+                    Email addresse
                   </label>
                   <div className="mt-1">
                     <input
@@ -100,7 +89,6 @@ export default function ResetPasswordPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="appearance-none text-black block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-violet-900 focus:border-violet-900 sm:text-sm"
-                      placeholder="Enter your email address"
                     />
                   </div>
                 </div>
@@ -111,7 +99,7 @@ export default function ResetPasswordPage() {
                     disabled={loading}
                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-violet-900 hover:bg-violet-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-900 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {loading ? "Sending reset link..." : "Send reset link"}
+                    {loading ? "Sender link..." : "Send link"}
                   </button>
                 </div>
               </form>

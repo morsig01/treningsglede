@@ -51,7 +51,7 @@ const offers = [
       "Instruktører som tilpasser øktene",
       "Passer for alle nivåer"
     ],
-    button: "Se gruppetimer",
+    button: "Se Program",
     href: "/gruppetrening",
     image: "/images/group-workout.jpg"
   }

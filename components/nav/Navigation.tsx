@@ -2,7 +2,6 @@
 
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Logo from "../Logo";
 
@@ -41,6 +40,16 @@ export default function Navigation() {
               >
                 Tilbud
               </Link>
+              <Link
+                href="/program"
+                className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+                  isActive("/program")
+                    ? "border-white text-white"
+                    : "border-transparent text-neutral-400 hover:border-neutral-300 hover:text-white"
+                }`}
+              >
+                Program
+              </Link>
               {session && (
                 <Link
                   href="/profile"
@@ -50,7 +59,7 @@ export default function Navigation() {
                       : "border-transparent text-neutral-200 hover:border-neutral-300 hover:text-white"
                   }`}
                 >
-                  Profile
+                  Profil
                 </Link>
               )}
             </div>
@@ -92,4 +101,4 @@ export default function Navigation() {
       </div>
     </nav>
   );
-} 
+}

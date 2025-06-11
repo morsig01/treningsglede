@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -52,25 +51,16 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-neutral-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
-          <Link href="/" className="inline-block">
-            <Image
-              src="/images/logo.png"
-              alt="Treningsglede"
-              width={200}
-              height={200}
-              className="mx-auto"
-            />
-          </Link>
           <h2 className="mt-6 text-3xl font-extrabold text-neutral-900">
-            Create your account
+            Registrer Bruker
           </h2>
           <p className="mt-2 text-sm text-neutral-600">
-            Already have an account?{" "}
+            Har du allerede bruker?{" "}
             <Link
               href="/auth/login"
               className="font-medium text-violet-900 hover:text-violet-900"
             >
-              Sign in
+              Logg inn her
             </Link>
           </p>
         </div>
@@ -83,7 +73,7 @@ export default function RegisterPage() {
                   htmlFor="name"
                   className="block text-sm font-medium text-neutral-700"
                 >
-                  Full name
+                  Fullt navn
                 </label>
                 <div className="mt-1">
                   <input
@@ -101,7 +91,7 @@ export default function RegisterPage() {
                   htmlFor="email"
                   className="block text-sm font-medium text-neutral-700"
                 >
-                  Email address
+                  Email addresse
                 </label>
                 <div className="mt-1">
                   <input
@@ -120,7 +110,7 @@ export default function RegisterPage() {
                   htmlFor="password"
                   className="block text-sm font-medium text-neutral-700"
                 >
-                  Password
+                  Passord
                 </label>
                 <div className="mt-1">
                   <input
@@ -134,7 +124,7 @@ export default function RegisterPage() {
                   />
                 </div>
                 <p className="mt-2 text-sm text-neutral-500">
-                  Must be at least 6 characters long
+                  Må være minst 6 tegn langt.
                 </p>
               </div>
 
@@ -164,7 +154,7 @@ export default function RegisterPage() {
                   disabled={loading}
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-violet-900 hover:bg-violet-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-900 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {loading ? "Creating account..." : "Create account"}
+                  {loading ? "Registrerer..." : "Registrer"}
                 </button>
               </div>
             </form>
@@ -175,15 +165,15 @@ export default function RegisterPage() {
                   <div className="w-full border-t border-neutral-300" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-neutral-500">
-                    By signing up, you agree to our{" "}
+                  <span className="px-2 text-center bg-white text-neutral-500">
+                    Ved registrering, samtykker du til{" "}
                     <Link
                       href="/terms"
                       className="font-medium text-violet-900 hover:text-violet-900"
                     >
                       Terms of Service
                     </Link>{" "}
-                    and{" "}
+                    og{" "}
                     <Link
                       href="/privacy"
                       className="font-medium text-violet-900 hover:text-violet-900"

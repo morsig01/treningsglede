@@ -2,7 +2,6 @@ import { SupabaseAdapter } from "@auth/supabase-adapter";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { createClient } from "@supabase/supabase-js";
-import { Session } from "next-auth";
 
 // Extend the built-in session types
 declare module "next-auth" {

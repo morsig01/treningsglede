@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
-import Image from "next/image";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,

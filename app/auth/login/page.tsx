@@ -8,12 +8,10 @@ import Image from "next/image";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
@@ -28,13 +26,13 @@ export default function LoginPage() {
       });
 
       if (result?.error) {
-        setError(result.error);
+        console.error("Login error:", result.error);
       } else {
         router.push("/");
         router.refresh();
       }
     } catch (error) {
-      setError("An unexpected error occurred");
+      console.error("An unexpected error occurred:", error);
     } finally {
       setLoading(false);
     }
@@ -57,7 +55,7 @@ export default function LoginPage() {
             Welcome back
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href="/auth/register"
               className="font-medium text-indigo-600 hover:text-indigo-500"
@@ -118,18 +116,6 @@ export default function LoginPage() {
                   </Link>
                 </div>
               </div>
-
-              {error && (
-                <div className="rounded-md bg-red-50 p-4">
-                  <div className="flex">
-                    <div className="ml-3">
-                      <h3 className="text-sm font-medium text-red-800">
-                        {error}
-                      </h3>
-                    </div>
-                  </div>
-                </div>
-              )}
 
               <div>
                 <button

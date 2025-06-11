@@ -13,12 +13,10 @@ const supabase = createClient(
 export default function ResetPasswordPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
     setLoading(true);
 
     try {
@@ -27,12 +25,12 @@ export default function ResetPasswordPage() {
       });
 
       if (error) {
-        setError(error.message);
+        console.error("Error resetting password:", error.message);
       } else {
         setSuccess(true);
       }
     } catch (error) {
-      setError("An unexpected error occurred");
+      console.error("An unexpected error occurred:", error);
     } finally {
       setLoading(false);
     }
@@ -55,6 +53,15 @@ export default function ResetPasswordPage() {
             Reset your password
           </h2>
           <p className="mt-2 text-sm text-gray-600">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/auth/register"
+              className="font-medium text-indigo-600 hover:text-indigo-500"
+            >
+              Sign up
+            </Link>
+          </p>
+          <p className="mt-2 text-sm text-gray-600">
             Remember your password?{" "}
             <Link
               href="/auth/login"
@@ -76,7 +83,7 @@ export default function ResetPasswordPage() {
                     </h3>
                     <div className="mt-2 text-sm text-green-700">
                       <p>
-                        We've sent you a password reset link. Please check your
+                        We&apos;ve sent you a password reset link. Please check your
                         email and follow the instructions to reset your password.
                       </p>
                     </div>
@@ -106,18 +113,6 @@ export default function ResetPasswordPage() {
                     />
                   </div>
                 </div>
-
-                {error && (
-                  <div className="rounded-md bg-red-50 p-4">
-                    <div className="flex">
-                      <div className="ml-3">
-                        <h3 className="text-sm font-medium text-red-800">
-                          {error}
-                        </h3>
-                      </div>
-                    </div>
-                  </div>
-                )}
 
                 <div>
                   <button

@@ -13,13 +13,10 @@ const supabase = createClient(
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
-    setLoading(true);
 
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
@@ -28,7 +25,7 @@ export default function RegisterPage() {
     const type = formData.get("type") as string;
 
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -40,12 +37,12 @@ export default function RegisterPage() {
       });
 
       if (error) {
-        setError(error.message);
+        console.error("Registration error:", error.message);
       } else {
         router.push("/auth/login?registered=true");
       }
     } catch (error) {
-      setError("An unexpected error occurred");
+      console.error("An unexpected error occurred:", error);
     } finally {
       setLoading(false);
     }
@@ -160,18 +157,6 @@ export default function RegisterPage() {
                   </select>
                 </div>
               </div>
-
-              {error && (
-                <div className="rounded-md bg-red-50 p-4">
-                  <div className="flex">
-                    <div className="ml-3">
-                      <h3 className="text-sm font-medium text-red-800">
-                        {error}
-                      </h3>
-                    </div>
-                  </div>
-                </div>
-              )}
 
               <div>
                 <button

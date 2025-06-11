@@ -2,7 +2,6 @@
 
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js";
 
 const sessionTypes = [
   {
@@ -25,11 +24,6 @@ const sessionTypes = [
   },
 ];
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
 function getMonthDays(year: number, month: number) {
   const days = [];
   const date = new Date(year, month, 1);
@@ -42,7 +36,6 @@ function getMonthDays(year: number, month: number) {
 
 export default function GrupptreningPage() {
   const { data: session } = useSession();
-  const [registered, setRegistered] = useState<string | null>(null); // key: date+sessionId
   const [userRegistrations, setUserRegistrations] = useState<{ session_id: number; session_date: string }[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -89,15 +82,15 @@ export default function GrupptreningPage() {
       if (!res.ok) {
         setError("Kunne ikke registrere deg: " + (data.error || "Ukjent feil"));
       } else {
-        setRegistered(date + "-" + sessionType.id);
-        setSuccess("Du er påmeldt " + sessionType.title + " den " + date);
         setUserRegistrations((prev) => [
           ...prev,
           { session_id: sessionType.id, session_date: date }
         ]);
+        setSuccess("Du er påmeldt " + sessionType.title + " den " + date);
       }
-    } catch (err: any) {
-      setError("Kunne ikke registrere deg: " + err.message);
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      setError("Kunne ikke registrere deg: " + errorMessage);
     }
   };
 
@@ -105,7 +98,6 @@ export default function GrupptreningPage() {
 
   // For calendar grid
   const firstDay = new Date(year, month, 1).getDay();
-  const totalDays = days.length;
   const weeks: (Date | null)[][] = [];
   let week: (Date | null)[] = Array(firstDay).fill(null);
   days.forEach((date) => {

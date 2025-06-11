@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from "next/image";
 
 const offers = [
   {
@@ -73,12 +74,12 @@ export default function OffersPage() {
               className={`flex flex-col md:flex-row ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''} items-center overflow-hidden`}
             >
               <div className="md:w-1/2 w-full h-64 md:h-80 flex-shrink-0">
-                <img
+                <Image
                   src={offer.image}
                   alt={offer.title}
-                  className="object-cover w-full h-full"
-                  style={{ background: '#ccc' }}
-                  onError={e => (e.currentTarget.src = 'https://placehold.co/600x400?text=Trening')}
+                  width={400}
+                  height={300}
+                  className="w-full h-48 object-cover rounded-t-lg"
                 />
               </div>
               <div className="md:w-1/2 w-full p-8 flex flex-col justify-center">

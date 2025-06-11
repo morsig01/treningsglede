@@ -14,12 +14,10 @@ const supabase = createClient(
 export default function UpdatePasswordPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
@@ -27,7 +25,7 @@ export default function UpdatePasswordPage() {
     const confirmPassword = formData.get("confirmPassword") as string;
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      console.error("Passwords do not match");
       setLoading(false);
       return;
     }
@@ -38,7 +36,7 @@ export default function UpdatePasswordPage() {
       });
 
       if (error) {
-        setError(error.message);
+        console.error("Error updating password:", error.message);
       } else {
         setSuccess(true);
         setTimeout(() => {
@@ -46,7 +44,7 @@ export default function UpdatePasswordPage() {
         }, 3000);
       }
     } catch (error) {
-      setError("An unexpected error occurred");
+      console.error("An unexpected error occurred:", error);
     } finally {
       setLoading(false);
     }
@@ -133,18 +131,6 @@ export default function UpdatePasswordPage() {
                     />
                   </div>
                 </div>
-
-                {error && (
-                  <div className="rounded-md bg-red-50 p-4">
-                    <div className="flex">
-                      <div className="ml-3">
-                        <h3 className="text-sm font-medium text-red-800">
-                          {error}
-                        </h3>
-                      </div>
-                    </div>
-                  </div>
-                )}
 
                 <div>
                   <button

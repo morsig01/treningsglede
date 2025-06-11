@@ -58,15 +58,15 @@ const offers = [
 
 export default function OffersPage() {
   return (
-    <div className="min-h-screen py-12 px-2">
+    <div className="min-h-screen py-12 px-2 bg-white text-black">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-3xl md:text-5xl font-extrabold text-center text-white mb-2">
+        <h1 className="text-3xl md:text-5xl font-extrabold text-center  mb-2">
           TRENINGSTILBUD DESIGNET FOR Å HJELPE DEG
         </h1>
         <h2 className="text-2xl md:text-4xl font-extrabold text-center mb-12 text-purple-500">
           NÅ DINE MÅL.
         </h2>
-        <div className="space-y-16 shadow-lg rounded-2xl p-6">
+        <div className="space-y-16 p-6">
           {offers.map((offer, idx) => (
             <div
               key={offer.id}
@@ -82,11 +82,11 @@ export default function OffersPage() {
                 />
               </div>
               <div className="md:w-1/2 w-full p-8 flex flex-col justify-center">
-                <h3 className="text-xl md:text-2xl font-bold text-white mb-4 uppercase tracking-wide">
+                <h3 className="text-xl md:text-2xl font-bold mb-4 uppercase tracking-wide">
                   {offer.title}
                 </h3>
                 {offer.description.map((desc, i) => (
-                  <p key={i} className="text-white text-base md:text-lg mb-2">
+                  <p key={i} className="text-base md:text-lg mb-2">
                     {desc}
                   </p>
                 ))}
@@ -96,7 +96,7 @@ export default function OffersPage() {
                       <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
-                      <span className="text-white">{feature}</span>
+                      <span>{feature}</span>
                     </li>
                   ))}
                 </ul>

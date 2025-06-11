@@ -46,8 +46,8 @@ export default function ResetPasswordPage() {
             <Image
               src="/images/logo.png"
               alt="Treningsglede"
-              width={48}
-              height={48}
+              width={200}
+              height={200}
               className="mx-auto"
             />
           </Link>

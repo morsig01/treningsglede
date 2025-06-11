@@ -61,15 +61,6 @@ export default function ResetPasswordPage() {
               Sign up
             </Link>
           </p>
-          <p className="mt-2 text-sm text-gray-600">
-            Remember your password?{" "}
-            <Link
-              href="/auth/login"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              Sign in
-            </Link>
-          </p>
         </div>
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -108,7 +99,7 @@ export default function ResetPasswordPage() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="appearance-none text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       placeholder="Enter your email address"
                     />
                   </div>

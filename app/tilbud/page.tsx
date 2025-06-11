@@ -61,25 +61,27 @@ export default function OffersPage() {
   return (
     <div className="min-h-screen py-12 px-2 bg-white text-black">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-3xl md:text-5xl font-extrabold text-center  mb-2">
+        <h1 className="text-3xl md:text-5xl font-extrabold text-center mb-6">
           TRENINGSTILBUD DESIGNET FOR Å HJELPE DEG
         </h1>
         <h2 className="text-2xl md:text-4xl font-extrabold text-center mb-12 text-violet-900">
           NÅ DINE MÅL.
         </h2>
-        <div className="space-y-16 p-6">
+        <div className="space-y-16 p-2">
           {offers.map((offer, idx) => (
             <div
               key={offer.id}
-              className={`flex flex-col md:flex-row ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''} items-center overflow-hidden`}
+              className={`flex flex-col md:flex-row ${
+                idx % 2 === 1 ? 'md:flex-row-reverse' : ''
+              } items-stretch overflow-hidden bg-white shadow rounded-lg`}
             >
-              <div className="md:w-1/2 w-full h-64 md:h-80 flex-shrink-0">
+              <div className="md:w-1/2 w-full h-auto">
                 <Image
                   src={offer.image}
                   alt={offer.title}
-                  width={400}
-                  height={300}
-                  className="w-full h-48 object-cover rounded-t-lg"
+                  width={800}
+                  height={600}
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div className="md:w-1/2 w-full p-8 flex flex-col justify-center">
@@ -101,7 +103,7 @@ export default function OffersPage() {
                     </li>
                   ))}
                 </ul>
-                <Link 
+                <Link
                   href={offer.href}
                   className="inline-block bg-violet-900 text-white font-bold text-center px-6 py-3 rounded-xl shadow hover:bg-[#1bc9e5] transition-colors"
                 >

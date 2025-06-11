@@ -208,7 +208,7 @@ export default function ProfilePage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2 px-4 bg-violet-900 text-white rounded-md hover:bg-violet-900 focus:ring-2 focus:ring-violet-900 disabled:opacity-50"
+          className="w-full py-2 px-4 bg-violet-900 text-white rounded-md hover:bg-violet-800 focus:ring-2 focus:ring-violet-900 disabled:opacity-50"
         >
           {loading ? "Updating..." : "Update Profile"}
         </button>
@@ -246,7 +246,7 @@ export default function ProfilePage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2 px-4 bg-violet-900 text-white rounded-md hover:bg-violet-900 focus:ring-2 focus:ring-violet-900 disabled:opacity-50"
+          className="w-full py-2 px-4 bg-violet-900 text-white rounded-md hover:bg-violet-800 focus:ring-2 focus:ring-violet-900 disabled:opacity-50"
         >
           {loading ? "Updating..." : "Change Password"}
         </button>

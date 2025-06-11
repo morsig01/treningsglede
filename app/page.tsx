@@ -22,33 +22,46 @@ export default function HomePage() {
         </div>
         <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Your Journey to a Healthier You Starts Here
+            Din reise mot bedre helse starter her
           </h1>
           <p className="mt-6 text-xl text-neutral-300 max-w-3xl">
-            Join Treningsglede and discover a supportive community dedicated to
-            helping you achieve your fitness goals, 24/7.
+            Bli treningsglede meldem og opplev et fellesskap dedikert til å hjelpe
+            deg med å nå dine mål, 24/7.
           </p>
           <div className="mt-10">
             {session ? (
               <Link
                 href="/profile"
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-900 hover:bg-violet-900"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-900 hover:bg-violet-800"
               >
-                View Your Profile
+                Din Profil
               </Link>
             ) : (
               <div className="space-x-4">
                 <Link
                   href="/auth/register"
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-900 hover:bg-violet-900"
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-900 hover:bg-violet-800"
                 >
-                  Get Started
+                  Kom i gang
+                  <svg
+                    className="ml-2 -mr-1 h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
                 </Link>
                 <Link
                   href="/auth/login"
                   className="inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-neutral-700"
                 >
-                  Sign In
+                  Logg inn
                 </Link>
               </div>
             )}
@@ -61,10 +74,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-neutral-900 sm:text-4xl">
-              Why Choose Treningsglede?
+              Hvorfor Treningsglede?
             </h2>
             <p className="mt-4 text-lg text-neutral-600">
-              Everything you need to achieve your fitness goals
+              Alt du trenger for å nå dine treningsmål, samlet på ett sted.
             </p>
           </div>
 
@@ -88,11 +101,11 @@ export default function HomePage() {
                   </svg>
                 </div>
                 <h3 className="text-lg font-medium text-neutral-900">
-                  Personalized Workouts
+                  Personlige Treningsplaner
                 </h3>
                 <p className="mt-2 text-base text-neutral-600">
-                  Get customized workout plans tailored to your goals and
-                  fitness level.
+                  Få skreddersydde treningsprogrammer tilpasset dine mål og
+                  ferdigheter.
                 </p>
               </div>
             </div>
@@ -116,11 +129,11 @@ export default function HomePage() {
                   </svg>
                 </div>
                 <h3 className="text-lg font-medium text-neutral-900">
-                  Community Support
+                  Fellesskap og Støtte
                 </h3>
                 <p className="mt-2 text-base text-neutral-600">
-                  Join a supportive community of like-minded individuals on
-                  their fitness journey.
+                  Bli en del av vårt støttende fellesskap med tilgang til
+                  treningsgrupper og forum.
                 </p>
               </div>
             </div>
@@ -144,11 +157,11 @@ export default function HomePage() {
                   </svg>
                 </div>
                 <h3 className="text-lg font-medium text-neutral-900">
-                  Progress Tracking
+                  Omfattende Treningsressurser
                 </h3>
                 <p className="mt-2 text-base text-neutral-600">
-                  Monitor your progress with detailed analytics and achievement
-                  tracking.
+                  Få tilgang til et bredt utvalg av treningsvideoer, artikler
+                  og verktøy for å forbedre din trening.
                 </p>
               </div>
             </div>
@@ -161,11 +174,11 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-neutral-900 sm:text-4xl">
-              Achieve Your Goals with Expert Guidance
+              Nå dine mål med hjelp fra våre trenere
             </h2>
             <p className="mt-4 text-lg text-neutral-600 max-w-3xl mx-auto">
-              Our experienced coaches are dedicated to helping you reach your
-              fitness goals through personalized attention and proven strategies
+              Våre erfarne trenere er her for å hjelpe deg med å sette og nå
+              realistiske mål, uansett hvor du er i din treningsreise.
             </p>
           </div>
 
@@ -192,11 +205,11 @@ export default function HomePage() {
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-medium text-neutral-900">
-                    Personalized Goal Setting
+                    Personlig Målsetting
                   </h3>
                   <p className="mt-2 text-base text-neutral-600">
-                    Work with your coach to set realistic, achievable goals
-                    tailored to your aspirations and current fitness level.
+                    Sammen med en coach setter du spesifikke, målbare og
+                    realistiske mål som passer for deg.
                   </p>
                 </div>
               </div>
@@ -221,11 +234,11 @@ export default function HomePage() {
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-medium text-neutral-900">
-                    Customized Training Plans
+                    Skreddersydd Treningsprogram
                   </h3>
                   <p className="mt-2 text-base text-neutral-600">
-                    Receive a training program specifically designed for your
-                    goals, with regular adjustments as you progress.
+                    Få et treningsprogram som er tilpasset dine mål, ferdigheter
+                    og preferanser, med justeringer underveis.
                   </p>
                 </div>
               </div>
@@ -250,11 +263,12 @@ export default function HomePage() {
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-medium text-neutral-900">
-                    Ongoing Support & Accountability
+                    Kontinuerlig Oppfølging
                   </h3>
                   <p className="mt-2 text-base text-neutral-600">
-                    Regular check-ins and progress reviews keep you motivated
-                    and on track to achieve your goals.
+                    Våre trenere følger opp din fremgang, gir tilbakemeldinger
+                    og justerer programmet etter behov for å sikre at du når dine
+                    mål.
                   </p>
                 </div>
               </div>
@@ -273,95 +287,12 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Centered Checklist */}
-          <div className="mt-16 max-w-2xl mx-auto">
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <h3 className="text-xl font-medium text-neutral-900 mb-6 text-center">
-                Why Work with a Coach?
-              </h3>
-              <ul className="space-y-4">
-                <li className="flex items-start">
-                  <svg
-                    className="h-6 w-6 text-green-500 mr-3 flex-shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-neutral-600">
-                    Expert guidance to prevent injuries and ensure proper form
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <svg
-                    className="h-6 w-6 text-green-500 mr-3 flex-shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-neutral-600">
-                    Personalized nutrition and lifestyle advice
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <svg
-                    className="h-6 w-6 text-green-500 mr-3 flex-shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-neutral-600">
-                    Motivation and accountability to stay consistent
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <svg
-                    className="h-6 w-6 text-green-500 mr-3 flex-shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-neutral-600">
-                    Adaptable programs that evolve with your progress
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
           <div className="mt-12 flex justify-center">
             <Link
               href="/ansatte"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-900 hover:bg-violet-900 shadow-sm"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-900 hover:bg-violet-800 shadow-sm"
             >
-              Meet Our Coaches
+              Møt Vårt Team
               <svg
                 className="ml-2 -mr-1 h-5 w-5"
                 fill="none"
@@ -379,6 +310,53 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+
+      {/* Outdoor and Indoor Training Section */}
+      <section className="relative text-white h-[30vh]">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/jogging.jpg"
+            alt="Utendørs og innendørs trening"
+            fill
+            className="object-cover object-bottom"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/50" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 h-full flex items-center">
+          <div className="space-y-4">
+            <h2 className="text-2xl sm:text-5xl font-bold">
+              Tren inne. Tren ute. Bare tren.
+            </h2>
+            <div className="space-y-6">
+              <p className="text-sm sm:text-base text-neutral-200">
+                Varierte økter hele året – inne i studioet eller ute i frisk
+                luft.
+              </p>
+              <Link
+                href="/program"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-900 hover:bg-violet-800 shadow-sm"
+              >
+                Se treningsprogram
+                <svg
+                  className="ml-2 -mr-1 h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

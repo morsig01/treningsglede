@@ -194,7 +194,7 @@ export default function ProfilePage() {
 
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-neutral-700">
-            Name
+            Navn
           </label>
           <input
             type="text"
@@ -210,7 +210,7 @@ export default function ProfilePage() {
           disabled={loading}
           className="w-full py-2 px-4 bg-violet-900 text-white rounded-md hover:bg-violet-800 focus:ring-2 focus:ring-violet-900 disabled:opacity-50"
         >
-          {loading ? "Updating..." : "Update Profile"}
+          {loading ? "Oppdaterer..." : "Oppdater Profil"}
         </button>
       </form>
 
@@ -218,7 +218,7 @@ export default function ProfilePage() {
       <form onSubmit={handleChangePassword} className="bg-white p-6 rounded-lg shadow space-y-6">
         <div>
           <label htmlFor="currentPassword" className="block text-sm font-medium text-neutral-700">
-            Current Password
+            Nåværende Passord
           </label>
           <input
             type="password"
@@ -231,7 +231,7 @@ export default function ProfilePage() {
 
         <div>
           <label htmlFor="newPassword" className="block text-sm font-medium text-neutral-700">
-            New Password
+            Nytt Passord
           </label>
           <input
             type="password"
@@ -248,7 +248,7 @@ export default function ProfilePage() {
           disabled={loading}
           className="w-full py-2 px-4 bg-violet-900 text-white rounded-md hover:bg-violet-800 focus:ring-2 focus:ring-violet-900 disabled:opacity-50"
         >
-          {loading ? "Updating..." : "Change Password"}
+          {loading ? "Oppdaterer..." : "Endre Passord"}
         </button>
       </form>
     </div>

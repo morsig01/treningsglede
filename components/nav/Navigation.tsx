@@ -50,18 +50,6 @@ export default function Navigation() {
               >
                 Program
               </Link>
-              {session && (
-                <Link
-                  href="/profile"
-                  className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                    isActive("/profile")
-                      ? "border-white text-white"
-                      : "border-transparent text-neutral-200 hover:border-neutral-300 hover:text-white"
-                  }`}
-                >
-                  Profil
-                </Link>
-              )}
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
@@ -69,12 +57,17 @@ export default function Navigation() {
               <div className="text-neutral-500">Loading...</div>
             ) : session ? (
               <div className="flex items-center space-x-4">
-                <span className="text-neutral-700">
+                <Link
+                  href="/profile"
+                  className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-violet-800 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-900"
+                >
+                <span>
                   {session.user.name || session.user.email}
                 </span>
+                </Link>
                 <button
                   onClick={() => signOut()}
-                  className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-violet-900 hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-900"
+                  className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-black bg-white hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-900"
                 >
                   Logg ut
                 </button>

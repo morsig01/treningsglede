@@ -2,12 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { supabase } from '@/app/lib/supabase';
 
 interface Trainer {
   id: string;
@@ -89,18 +84,19 @@ export default function TrainersPage() {
         </div>
 
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {trainers.map((trainer) => (
+          {trainers.map((trainer, index) => (
             <div
               key={trainer.id}
               className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="relative h-64 w-full">
+              <div className="relative aspect-square w-full">
                 <Image
                   src={trainer.image_url || '/images/trainer-placeholder.jpg'}
                   alt={trainer.name}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  priority={index < 2}
                 />
               </div>
               <div className="p-6">

@@ -299,12 +299,13 @@ export default function AdminTrainersPage() {
             {trainers.map((trainer) => (
               <div key={trainer.id} className="p-6 flex items-center justify-between">
                 <div className="flex items-center space-x-4">
-                  <div className="relative h-16 w-16 flex-shrink-0">
+                  <div className="relative aspect-square w-16 flex-shrink-0">
                     <Image
                       src={trainer.image_url || '/images/trainer-placeholder.jpg'}
                       alt={trainer.name}
                       fill
                       className="object-cover rounded-full"
+                      sizes="64px"
                     />
                   </div>
                   <div>

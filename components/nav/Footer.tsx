@@ -42,7 +42,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/tilbud" className="text-neutral-400 hover:text-white">
-                  Tilbud
+                  Trening
                 </Link>
               </li>
               <li>

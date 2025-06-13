@@ -1,12 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/auth";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createServerSupabaseClient } from "@/app/lib/supabase";
 
 // Middleware to check admin role
 async function checkAdmin(req: NextRequest) {
@@ -25,6 +20,7 @@ export async function GET(req: NextRequest) {
   if (authError) return authError;
 
   try {
+    const supabase = createServerSupabaseClient();
     const { data, error } = await supabase
       .from('trainers')
       .select('*')
@@ -55,6 +51,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Name and role are required" }, { status: 400 });
     }
 
+    const supabase = createServerSupabaseClient();
     const { data, error } = await supabase
       .from('trainers')
       .insert([{ name, role, bio, image_url, specialties }])

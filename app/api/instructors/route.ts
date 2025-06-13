@@ -1,13 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createServerSupabaseClient } from "@/app/lib/supabase";
 
 export async function GET() {
   try {
+    const supabase = createServerSupabaseClient();
     const { data, error } = await supabase
       .from("trainers")
       .select("id, name")
@@ -32,6 +28,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Name is required" }, { status: 400 });
     }
 
+    const supabase = createServerSupabaseClient();
     const { data, error } = await supabase
       .from("trainers")
       .insert([{ name }])

@@ -1,12 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/auth";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createServerSupabaseClient } from "@/app/lib/supabase";
 
 // Middleware to check admin role
 async function checkAdmin(req: NextRequest) {
@@ -19,6 +14,36 @@ async function checkAdmin(req: NextRequest) {
   return null;
 }
 
+// Get a single trainer
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const authError = await checkAdmin(req);
+  if (authError) return authError;
+
+  try {
+    const supabase = createServerSupabaseClient();
+    const { data, error } = await supabase
+      .from('trainers')
+      .select('*')
+      .eq('id', params.id)
+      .single();
+
+    if (error) {
+      if (error.code === 'PGRST116') {
+        return NextResponse.json({ error: "Trainer not found" }, { status: 404 });
+      }
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
+    return NextResponse.json({ trainer: data });
+  } catch (error) {
+    console.error('Error fetching trainer:', error);
+    return NextResponse.json({ error: "Failed to fetch trainer" }, { status: 500 });
+  }
+}
+
 // Update a trainer
 export async function PUT(
   req: NextRequest,
@@ -28,7 +53,6 @@ export async function PUT(
   if (authError) return authError;
 
   try {
-    const { id } = params;
     const body = await req.json();
     const { name, role, bio, image_url, specialties } = body;
 
@@ -37,14 +61,18 @@ export async function PUT(
       return NextResponse.json({ error: "Name and role are required" }, { status: 400 });
     }
 
+    const supabase = createServerSupabaseClient();
     const { data, error } = await supabase
       .from('trainers')
       .update({ name, role, bio, image_url, specialties })
-      .eq('id', id)
+      .eq('id', params.id)
       .select()
       .single();
 
     if (error) {
+      if (error.code === 'PGRST116') {
+        return NextResponse.json({ error: "Trainer not found" }, { status: 404 });
+      }
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
@@ -64,18 +92,20 @@ export async function DELETE(
   if (authError) return authError;
 
   try {
-    const { id } = params;
-
+    const supabase = createServerSupabaseClient();
     const { error } = await supabase
       .from('trainers')
       .delete()
-      .eq('id', id);
+      .eq('id', params.id);
 
     if (error) {
+      if (error.code === 'PGRST116') {
+        return NextResponse.json({ error: "Trainer not found" }, { status: 404 });
+      }
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
-    return new NextResponse(null, { status: 204 });
+    return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting trainer:', error);
     return NextResponse.json({ error: "Failed to delete trainer" }, { status: 500 });

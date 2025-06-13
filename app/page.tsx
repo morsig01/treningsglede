@@ -282,13 +282,15 @@ export default function HomePage() {
             </div>
 
             {/* Right Column - Benefits */}
-            <div className="relative">
-              <div className="aspect-w-5 aspect-h-3 rounded-lg shadow-lg overflow-hidden">
+            <div className="relative h-full">
+              <div className="relative h-full rounded-lg shadow-lg overflow-hidden">
                 <Image
                   src="/images/trainers/reaching-out.jpg"
                   alt="Coach reaching out to client"
                   fill
                   className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
                 />
               </div>
             </div>

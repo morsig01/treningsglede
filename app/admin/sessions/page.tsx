@@ -56,13 +56,10 @@ export default function AdminSessionsPage() {
 
   async function fetchSessions() {
     try {
-      const { data, error } = await supabase
-        .from('sessions')
-        .select('*')
-        .order('date', { ascending: true });
-
-      if (error) throw error;
-      setSessions(data || []);
+      const response = await fetch('/api/admin/sessions');
+      if (!response.ok) throw new Error('Failed to fetch sessions');
+      const data = await response.json();
+      setSessions(data.sessions || []);
     } catch (err) {
       setError('Kunne ikke laste økter. Vennligst prøv igjen senere.');
       console.error('Error fetching sessions:', err);
@@ -82,18 +79,21 @@ export default function AdminSessionsPage() {
 
     try {
       if (editingSession) {
-        const { error } = await supabase
-          .from('sessions')
-          .update(formData)
-          .eq('id', editingSession.id);
+        const response = await fetch(`/api/admin/sessions/${editingSession.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
         
-        if (error) throw error;
+        if (!response.ok) throw new Error('Failed to update session');
       } else {
-        const { error } = await supabase
-          .from('sessions')
-          .insert([{ ...formData, current_participants: 0 }]);
+        const response = await fetch('/api/admin/sessions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
         
-        if (error) throw error;
+        if (!response.ok) throw new Error('Failed to create session');
       }
 
       await fetchSessions();
@@ -110,12 +110,11 @@ export default function AdminSessionsPage() {
     if (!confirm('Er du sikker på at du vil slette denne økten?')) return;
 
     try {
-      const { error } = await supabase
-        .from('sessions')
-        .delete()
-        .eq('id', id);
+      const response = await fetch(`/api/admin/sessions/${id}`, {
+        method: 'DELETE'
+      });
       
-      if (error) throw error;
+      if (!response.ok) throw new Error('Failed to delete session');
       await fetchSessions();
     } catch (err) {
       setError('Kunne ikke slette økt. Vennligst prøv igjen senere.');
@@ -186,7 +185,7 @@ export default function AdminSessionsPage() {
                 required
                 value={formData.title}
                 onChange={handleInputChange}
-                className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-base py-3 px-4"
+                className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-black py-3 px-4"
               />
             </div>
 
@@ -201,7 +200,7 @@ export default function AdminSessionsPage() {
                 required
                 value={formData.instructor}
                 onChange={handleInputChange}
-                className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-base py-3 px-4"
+                className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-black py-3 px-4"
               />
             </div>
 
@@ -216,7 +215,7 @@ export default function AdminSessionsPage() {
                 required
                 value={formData.date}
                 onChange={handleInputChange}
-                className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-base py-3 px-4"
+                className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-black py-3 px-4"
               />
             </div>
 
@@ -231,7 +230,7 @@ export default function AdminSessionsPage() {
                 required
                 value={formData.time}
                 onChange={handleInputChange}
-                className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-base py-3 px-4"
+                className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-black py-3 px-4"
               />
             </div>
 
@@ -247,7 +246,7 @@ export default function AdminSessionsPage() {
                 min="1"
                 value={formData.max_participants}
                 onChange={handleInputChange}
-                className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-base py-3 px-4"
+                className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-black py-3 px-4"
               />
             </div>
 
@@ -261,7 +260,7 @@ export default function AdminSessionsPage() {
                 rows={4}
                 value={formData.description}
                 onChange={handleInputChange}
-                className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-base py-3 px-4"
+                className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-black py-3 px-4"
               />
             </div>
           </div>

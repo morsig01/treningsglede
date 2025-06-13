@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
+import LocationInput from "@/components/LocationInput";
+import SessionsTable from "@/components/SessionsTable";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -19,6 +21,9 @@ interface Session {
   max_participants: number;
   current_participants: number;
   description?: string;
+  location?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 interface SessionFormData {
@@ -28,6 +33,9 @@ interface SessionFormData {
   time: string;
   max_participants: number;
   description: string;
+  location: string;
+  latitude: number;
+  longitude: number;
 }
 
 export default function AdminSessionsPage() {
@@ -37,14 +45,16 @@ export default function AdminSessionsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editingSession, setEditingSession] = useState<Session | null>(null);
-  const [showPast, setShowPast] = useState(false);
-  const [formData, setFormData] = useState<SessionFormData>({
+  const [showPast, setShowPast] = useState(false);  const [formData, setFormData] = useState<SessionFormData>({
     title: '',
     instructor: '',
     date: '',
     time: '',
     max_participants: 20,
     description: '',
+    location: '',
+    latitude: 0,
+    longitude: 0,
   });
 
   useEffect(() => {
@@ -124,26 +134,30 @@ export default function AdminSessionsPage() {
   };
 
   const handleEdit = (session: Session) => {
-    setEditingSession(session);
-    setFormData({
+    setEditingSession(session);    setFormData({
       title: session.title,
       instructor: session.instructor,
       date: session.date,
       time: session.time,
       max_participants: session.max_participants,
       description: session.description || '',
+      location: session.location || '',
+      latitude: session.latitude || 0,
+      longitude: session.longitude || 0,
     });
   };
 
   const resetForm = () => {
-    setEditingSession(null);
-    setFormData({
+    setEditingSession(null);    setFormData({
       title: '',
       instructor: '',
       date: '',
       time: '',
       max_participants: 20,
       description: '',
+      location: '',
+      latitude: 0,
+      longitude: 0,
     });
   };
 
@@ -249,6 +263,22 @@ export default function AdminSessionsPage() {
                 onChange={handleInputChange}
                 className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-black py-3 px-4"
               />
+            </div>            <div className="sm:col-span-2">
+              <label htmlFor="location" className="block text-base font-medium text-neutral-700 mb-2">
+                Sted
+              </label>
+              <LocationInput
+                value={formData.location}
+                onChange={data => {
+                  setFormData(prev => ({
+                    ...prev,
+                    location: data.location,
+                    latitude: data.latitude,
+                    longitude: data.longitude
+                  }));
+                }}
+                className="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-black py-3 px-4"
+              />
             </div>
 
             <div className="sm:col-span-2">
@@ -324,65 +354,12 @@ export default function AdminSessionsPage() {
                 </button>
               </nav>
             </div>
-          </div>
-
-          <div className="mt-8">
-            <table className="min-w-full divide-y divide-neutral-200">
-              <thead className="bg-neutral-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                    Økt
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                    Dato & Tid
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                    Deltakere
-                  </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                    Handlinger
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-neutral-200">
-                {sessions.map((session) => (
-                  <tr key={session.id}>
-                    <td className="px-6 py-4">
-                      <div className="text-sm font-medium text-neutral-900">{session.title}</div>
-                      <div className="text-sm text-neutral-500">{session.instructor}</div>
-                      {session.description && (
-                        <div className="mt-1 text-sm text-neutral-600">{session.description}</div>
-                      )}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-neutral-900">
-                        {new Date(session.date).toLocaleDateString('no-NO')}
-                      </div>
-                      <div className="text-sm text-neutral-500">{session.time}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-neutral-900">
-                        {session.current_participants} / {session.max_participants}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button
-                        onClick={() => handleEdit(session)}
-                        className="text-violet-600 hover:text-violet-900 mr-4"
-                      >
-                        Rediger
-                      </button>
-                      <button
-                        onClick={() => handleDelete(session.id)}
-                        className="text-red-600 hover:text-red-900"
-                      >
-                        Slett
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          </div>          <div className="mt-8">
+            <SessionsTable 
+              sessions={sessions}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
           </div>
         </div>
       </div>

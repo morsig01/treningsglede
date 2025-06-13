@@ -18,6 +18,12 @@ type CustomSession = {
   user?: CustomUser;
 } | null;
 
+interface WeatherData {
+  temperature: number;
+  description: string;
+  icon: string;
+}
+
 interface Session {
   id: number;
   title: string;
@@ -27,6 +33,10 @@ interface Session {
   max_participants: number;
   current_participants: number;
   description?: string;
+  location?: string;
+  latitude?: number;
+  longitude?: number;
+  weather?: WeatherData;
 }
 
 export default function GrupptreningPage() {
@@ -35,7 +45,6 @@ export default function GrupptreningPage() {
   const [userRegistrations, setUserRegistrations] = useState<{ session_id: number; session_date: string }[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-
   const fetchSessions = async () => {
     try {
       const res = await fetch('/api/sessions');
@@ -44,7 +53,25 @@ export default function GrupptreningPage() {
         throw new Error(errorData.error || 'Failed to load sessions');
       }
       const data = await res.json();
-      setSessions(data.sessions);
+      
+      const sessionsWithWeather = await Promise.all(
+        (data.sessions || []).map(async (session: Session) => {
+          if (session.latitude && session.longitude) {
+            try {
+              const weatherData = await fetch(
+                `/api/weather?lat=${session.latitude}&lon=${session.longitude}&date=${session.date}`
+              ).then(res => res.json());
+              return { ...session, weather: weatherData };
+            } catch (error) {
+              console.error('Error fetching weather for session:', error);
+              return session;
+            }
+          }
+          return session;
+        })
+      );
+      
+      setSessions(sessionsWithWeather);
       setError(null); // Clear any previous errors
     } catch (err) {
       console.error('Error fetching sessions:', err);
@@ -80,38 +107,66 @@ export default function GrupptreningPage() {
     };
     fetchRegistrations();
   }, [session?.user?.id]);
-
   const handleRegister = async (sessionId: number) => {
+    if (!session?.user?.id) {
+      setError('Du må være logget inn for å melde deg på.');
+      return;
+    }
+
     try {
+      // Find the session data from our sessions list
+      const sessionData = sessions.find(s => s.id === sessionId);
+      if (!sessionData) {
+        throw new Error('Session not found');
+      }
+
       const response = await fetch('/api/registrations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId }),
+        body: JSON.stringify({
+          user_id: session.user.id,
+          session_id: sessionId,
+          session_date: sessionData.date
+        }),
       });
 
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.error || 'Failed to register for session');
-      }
-
-      // Update the sessions list to reflect the new registration
+      }      // Update the sessions list to reflect the new registration
       await fetchSessions();
+      
       // Update the user's registrations
-      const registrationsResponse = await fetch('/api/registrations');
-      if (registrationsResponse.ok) {
-        const data = await registrationsResponse.json();
-        setUserRegistrations(data.registrations || []);
+      if (session?.user?.id) {
+        const today = new Date().toISOString().split('T')[0];
+        const nextYear = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+        const registrationsResponse = await fetch(
+          `/api/registrations/user?user_id=${session.user.id}&from=${today}&to=${nextYear}`
+        );
+        if (registrationsResponse.ok) {
+          const data = await registrationsResponse.json();
+          setUserRegistrations(data.registrations || []);
+        }
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Kunne ikke melde på økt. Vennligst prøv igjen senere.');
       console.error('Error registering for session:', err);
     }
   };
-
   const handleUnregister = async (sessionId: number) => {
+    if (!session?.user?.id) {
+      setError('Du må være logget inn for å melde deg av.');
+      return;
+    }
+
     try {
-      const response = await fetch(`/api/registrations/${sessionId}`, {
-        method: 'DELETE',
+      const response = await fetch('/api/registrations/unregister', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: session.user.id,
+          session_id: sessionId
+        }),
       });
 
       if (!response.ok) {
@@ -121,8 +176,13 @@ export default function GrupptreningPage() {
 
       // Update the sessions list to reflect the unregistration
       await fetchSessions();
+      
       // Update the user's registrations
-      const registrationsResponse = await fetch('/api/registrations');
+      const today = new Date().toISOString().split('T')[0];
+      const nextYear = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+      const registrationsResponse = await fetch(
+        `/api/registrations/user?user_id=${session.user.id}&from=${today}&to=${nextYear}`
+      );
       if (registrationsResponse.ok) {
         const data = await registrationsResponse.json();
         setUserRegistrations(data.registrations || []);
@@ -177,17 +237,32 @@ export default function GrupptreningPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {sessions.map((session) => (
-              <div
+            {sessions.map((session) => (              <div
                 key={session.id}
                 className="bg-white rounded-lg shadow-lg overflow-hidden"
               >
                 <div className="p-6">
                   <div className="flex justify-between items-start">
-                    <div>
+                    <div className="flex-grow">
                       <h2 className="text-xl font-semibold text-neutral-900">
                         {session.title}
                       </h2>
+                      {session.location && (
+                        <p className="text-neutral-600 mt-1">
+                          📍 {session.location}
+                        </p>
+                      )}
+                      {session.weather && (
+                        <div className="mt-2 flex items-center gap-2 text-neutral-600">
+                          <img 
+                            src={`https://openweathermap.org/img/w/${session.weather.icon}.png`}
+                            alt={session.weather.description}
+                            className="w-8 h-8"
+                          />
+                          <span>{session.weather.temperature}°C</span>
+                          <span className="capitalize">{session.weather.description}</span>
+                        </div>
+                      )}
                       <p className="mt-1 text-sm text-violet-900">
                         {session.instructor}
                       </p>

@@ -11,6 +11,8 @@
   "dependencies": {
     "@auth/supabase-adapter": "^1.9.1",
     "@supabase/supabase-js": "^2.50.0",
+    "@types/lodash": "^4.17.17",
+    "lodash": "^4.17.21",
     "next": "15.3.3",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
@@ -19,6 +21,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/google.maps": "^3.58.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

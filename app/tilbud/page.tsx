@@ -52,7 +52,7 @@ const offers = [
       "Passer for alle nivåer"
     ],
     button: "Se Program",
-    href: "/gruppetrening",
+    href: "/program",
     image: "/images/group-workout.jpg"
   }
 ];

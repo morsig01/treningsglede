@@ -52,7 +52,7 @@ export default function Navigation() {
                     : "border-transparent text-neutral-400 hover:border-neutral-300 hover:text-white"
                 }`}
               >
-                Tilbud
+                Trening
               </Link>
               <Link
                 href="/program"

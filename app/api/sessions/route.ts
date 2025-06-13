@@ -9,19 +9,27 @@ const supabase = createClient(
 // Get all sessions
 export async function GET() {
   try {
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+
     const { data, error } = await supabase
       .from("sessions")
       .select("*")
+      .gte("date", today) // Only get sessions with date >= today
       .order("date", { ascending: true });
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      console.error('Supabase error:', error);
+      return NextResponse.json({ 
+        error: `Database error: ${error.message}` 
+      }, { status: 400 });
     }
 
     return NextResponse.json({ sessions: data });
   } catch (error) {
-    console.error('Error fetching sessions:', error);
-    return NextResponse.json({ error: "Failed to fetch sessions" }, { status: 500 });
+    console.error('Unexpected error fetching sessions:', error);
+    return NextResponse.json({ 
+      error: "An unexpected error occurred while fetching sessions" 
+    }, { status: 500 });
   }
 }
 

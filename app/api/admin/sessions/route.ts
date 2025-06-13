@@ -25,19 +25,33 @@ export async function GET(req: NextRequest) {
   if (authError) return authError;
 
   try {
-    const { data, error } = await supabase
+    const { searchParams } = new URL(req.url);
+    const showPast = searchParams.get('showPast') === 'true';
+    const today = new Date().toISOString().split('T')[0];
+
+    let query = supabase
       .from('sessions')
       .select('*')
       .order('date', { ascending: true });
 
+    query = showPast 
+      ? query.lt('date', today)
+      : query.gte('date', today);
+
+    const { data: sessions, error } = await query;
+
     if (error) {
+      console.error('Error fetching sessions:', error);
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
-    return NextResponse.json({ sessions: data });
+    return NextResponse.json({ sessions });
   } catch (error) {
-    console.error('Error fetching sessions:', error);
-    return NextResponse.json({ error: "Failed to fetch sessions" }, { status: 500 });
+    console.error('Error in sessions API:', error);
+    return NextResponse.json(
+      { error: "An unexpected error occurred while fetching sessions" },
+      { status: 500 }
+    );
   }
 }
 

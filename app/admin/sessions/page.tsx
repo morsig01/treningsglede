@@ -37,6 +37,7 @@ export default function AdminSessionsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editingSession, setEditingSession] = useState<Session | null>(null);
+  const [showPast, setShowPast] = useState(false);
   const [formData, setFormData] = useState<SessionFormData>({
     title: '',
     instructor: '',
@@ -52,11 +53,11 @@ export default function AdminSessionsPage() {
       return;
     }
     fetchSessions();
-  }, [session, router]);
+  }, [session, router, showPast]);
 
   async function fetchSessions() {
     try {
-      const response = await fetch('/api/admin/sessions');
+      const response = await fetch(`/api/admin/sessions?showPast=${showPast}`);
       if (!response.ok) throw new Error('Failed to fetch sessions');
       const data = await response.json();
       setSessions(data.sessions || []);
@@ -284,66 +285,105 @@ export default function AdminSessionsPage() {
           </div>
         </form>
 
-        <div className="bg-white rounded-lg shadow overflow-hidden">
-          <div className="px-6 py-4 border-b border-neutral-200">
-            <h2 className="text-xl font-semibold text-neutral-900">Eksisterende Økter</h2>
+        <div className="mt-12">
+          <div className="sm:hidden">
+            <label htmlFor="tabs" className="sr-only">Select a tab</label>
+            <select
+              id="tabs"
+              name="tabs"
+              className="block w-full rounded-md border-neutral-300 focus:border-violet-500 focus:ring-violet-500"
+              value={showPast ? 'past' : 'upcoming'}
+              onChange={(e) => setShowPast(e.target.value === 'past')}
+            >
+              <option value="upcoming">Kommende Økter</option>
+              <option value="past">Utgåtte Økter</option>
+            </select>
           </div>
-          <table className="min-w-full divide-y divide-neutral-200">
-            <thead className="bg-neutral-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                  Økt
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                  Dato & Tid
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                  Deltakere
-                </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                  Handlinger
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-neutral-200">
-              {sessions.map((session) => (
-                <tr key={session.id}>
-                  <td className="px-6 py-4">
-                    <div className="text-sm font-medium text-neutral-900">{session.title}</div>
-                    <div className="text-sm text-neutral-500">{session.instructor}</div>
-                    {session.description && (
-                      <div className="mt-1 text-sm text-neutral-600">{session.description}</div>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-neutral-900">
-                      {new Date(session.date).toLocaleDateString('no-NO')}
-                    </div>
-                    <div className="text-sm text-neutral-500">{session.time}</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-neutral-900">
-                      {session.current_participants} / {session.max_participants}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button
-                      onClick={() => handleEdit(session)}
-                      className="text-violet-600 hover:text-violet-900 mr-4"
-                    >
-                      Rediger
-                    </button>
-                    <button
-                      onClick={() => handleDelete(session.id)}
-                      className="text-red-600 hover:text-red-900"
-                    >
-                      Slett
-                    </button>
-                  </td>
+          <div className="hidden sm:block">
+            <div className="border-b border-neutral-200">
+              <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+                <button
+                  onClick={() => setShowPast(false)}
+                  className={`${
+                    !showPast
+                      ? 'border-violet-500 text-violet-600'
+                      : 'border-transparent text-neutral-500 hover:border-neutral-300 hover:text-neutral-700'
+                  } whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium`}
+                >
+                  Kommende Økter
+                </button>
+                <button
+                  onClick={() => setShowPast(true)}
+                  className={`${
+                    showPast
+                      ? 'border-violet-500 text-violet-600'
+                      : 'border-transparent text-neutral-500 hover:border-neutral-300 hover:text-neutral-700'
+                  } whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium`}
+                >
+                  Utgåtte Økter
+                </button>
+              </nav>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <table className="min-w-full divide-y divide-neutral-200">
+              <thead className="bg-neutral-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                    Økt
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                    Dato & Tid
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                    Deltakere
+                  </th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                    Handlinger
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="bg-white divide-y divide-neutral-200">
+                {sessions.map((session) => (
+                  <tr key={session.id}>
+                    <td className="px-6 py-4">
+                      <div className="text-sm font-medium text-neutral-900">{session.title}</div>
+                      <div className="text-sm text-neutral-500">{session.instructor}</div>
+                      {session.description && (
+                        <div className="mt-1 text-sm text-neutral-600">{session.description}</div>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-neutral-900">
+                        {new Date(session.date).toLocaleDateString('no-NO')}
+                      </div>
+                      <div className="text-sm text-neutral-500">{session.time}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-neutral-900">
+                        {session.current_participants} / {session.max_participants}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <button
+                        onClick={() => handleEdit(session)}
+                        className="text-violet-600 hover:text-violet-900 mr-4"
+                      >
+                        Rediger
+                      </button>
+                      <button
+                        onClick={() => handleDelete(session.id)}
+                        className="text-red-600 hover:text-red-900"
+                      >
+                        Slett
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

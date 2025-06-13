@@ -36,22 +36,33 @@ export default function GrupptreningPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch all sessions
-  useEffect(() => {
-    const fetchSessions = async () => {
-      try {
-        const res = await fetch('/api/sessions');
-        if (res.ok) {
-          const data = await res.json();
-          setSessions(data.sessions);
-        }
-      } catch (err) {
-        setError('Failed to load sessions');
-      } finally {
-        setLoading(false);
+  const fetchSessions = async () => {
+    try {
+      const res = await fetch('/api/sessions');
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || 'Failed to load sessions');
       }
-    };
+      const data = await res.json();
+      setSessions(data.sessions);
+      setError(null); // Clear any previous errors
+    } catch (err) {
+      console.error('Error fetching sessions:', err);
+      setError(err instanceof Error ? err.message : 'Failed to load sessions');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch all sessions on mount and every 30 seconds
+  useEffect(() => {
     fetchSessions();
+    
+    // Set up periodic refresh
+    const intervalId = setInterval(fetchSessions, 30000);
+    
+    // Cleanup interval on unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   // Fetch user registrations
@@ -70,73 +81,55 @@ export default function GrupptreningPage() {
     fetchRegistrations();
   }, [session?.user?.id]);
 
-  const handleRegister = async (sessionId: number, sessionDate: string) => {
-    if (!session?.user?.id) return;
-
+  const handleRegister = async (sessionId: number) => {
     try {
-      const res = await fetch('/api/registrations', {
+      const response = await fetch('/api/registrations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_id: session.user.id,
-          session_id: sessionId,
-          session_date: sessionDate,
-        }),
+        body: JSON.stringify({ sessionId }),
       });
 
-      if (res.ok) {
-        // Update local state
-        setSessions(prev =>
-          prev.map(s =>
-            s.id === sessionId
-              ? { ...s, current_participants: s.current_participants + 1 }
-              : s
-          )
-        );
-        setUserRegistrations(prev => [...prev, { session_id: sessionId, session_date: sessionDate }]);
-      } else {
-        const data = await res.json();
-        setError(data.error || 'Failed to register for session');
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to register for session');
+      }
+
+      // Update the sessions list to reflect the new registration
+      await fetchSessions();
+      // Update the user's registrations
+      const registrationsResponse = await fetch('/api/registrations');
+      if (registrationsResponse.ok) {
+        const data = await registrationsResponse.json();
+        setUserRegistrations(data.registrations || []);
       }
     } catch (err) {
-      setError('An error occurred while registering for the session');
+      setError(err instanceof Error ? err.message : 'Kunne ikke melde på økt. Vennligst prøv igjen senere.');
+      console.error('Error registering for session:', err);
     }
   };
 
-  const handleUnregister = async (sessionId: number, sessionDate: string) => {
-    if (!session?.user?.id) return;
-
+  const handleUnregister = async (sessionId: number) => {
     try {
-      const res = await fetch('/api/registrations', {
+      const response = await fetch(`/api/registrations/${sessionId}`, {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_id: session.user.id,
-          session_id: sessionId,
-          session_date: sessionDate,
-        }),
       });
 
-      if (res.ok) {
-        // Update local state
-        setSessions(prev =>
-          prev.map(s =>
-            s.id === sessionId
-              ? { ...s, current_participants: s.current_participants - 1 }
-              : s
-          )
-        );
-        setUserRegistrations(prev =>
-          prev.filter(
-            r => !(r.session_id === sessionId && r.session_date === sessionDate)
-          )
-        );
-      } else {
-        const data = await res.json();
-        setError(data.error || 'Failed to unregister from session');
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to unregister from session');
+      }
+
+      // Update the sessions list to reflect the unregistration
+      await fetchSessions();
+      // Update the user's registrations
+      const registrationsResponse = await fetch('/api/registrations');
+      if (registrationsResponse.ok) {
+        const data = await registrationsResponse.json();
+        setUserRegistrations(data.registrations || []);
       }
     } catch (err) {
-      setError('An error occurred while unregistering from the session');
+      setError(err instanceof Error ? err.message : 'Kunne ikke melde av økt. Vennligst prøv igjen senere.');
+      console.error('Error unregistering from session:', err);
     }
   };
 
@@ -168,17 +161,23 @@ export default function GrupptreningPage() {
 
         {error && (
           <div className="mb-6 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded">
-            {error}
+            <p className="font-medium">Feil ved lasting av økter:</p>
+            <p>{error}</p>
           </div>
         )}
 
-        <div className="space-y-4">
-          {sessions.length === 0 ? (
-            <div className="bg-white rounded-lg shadow p-6 text-center text-neutral-600">
-              Ingen kommende økter tilgjengelige.
-            </div>
-          ) : (
-            sessions.map((session) => (
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-900 mx-auto"></div>
+            <p className="mt-4 text-lg text-neutral-600">Laster økter...</p>
+          </div>
+        ) : sessions.length === 0 ? (
+          <div className="bg-white rounded-lg shadow p-6 text-center text-neutral-600">
+            Ingen kommende økter tilgjengelige.
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {sessions.map((session) => (
               <div
                 key={session.id}
                 className="bg-white rounded-lg shadow-lg overflow-hidden"
@@ -213,8 +212,8 @@ export default function GrupptreningPage() {
                       <button
                         onClick={() =>
                           isUserRegistered(session.id, session.date)
-                            ? handleUnregister(session.id, session.date)
-                            : handleRegister(session.id, session.date)
+                            ? handleUnregister(session.id)
+                            : handleRegister(session.id)
                         }
                         disabled={!isUserRegistered(session.id, session.date) && session.current_participants >= session.max_participants}
                         className={`px-4 py-2 rounded-lg text-sm font-medium ${
@@ -235,9 +234,9 @@ export default function GrupptreningPage() {
                   </div>
                 </div>
               </div>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

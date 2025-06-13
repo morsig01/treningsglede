@@ -3,7 +3,7 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { createClient } from "@supabase/supabase-js";
 
-// Extend the built-in session types
+// Extend the built-in types
 declare module "next-auth" {
   interface Session {
     user: {
@@ -11,7 +11,22 @@ declare module "next-auth" {
       email?: string | null;
       name?: string | null;
       image?: string | null;
+      role?: string;
     }
+  }
+
+  interface User {
+    id: string;
+    email?: string | null;
+    name?: string | null;
+    image?: string | null;
+    role?: string;
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    role?: string;
   }
 }
 
@@ -46,10 +61,22 @@ export const authOptions: NextAuthOptions = {
           throw new Error(error?.message || "Invalid credentials");
         }
 
+        // Get user metadata including role
+        const { data: userData, error: userError } = await supabase
+          .from('users')
+          .select('role')
+          .eq('id', data.user.id)
+          .single();
+
+        if (userError) {
+          console.error('Error fetching user role:', userError);
+        }
+
         return {
           id: data.user.id,
           email: data.user.email,
           name: data.user.user_metadata?.name,
+          role: userData?.role || data.user.user_metadata?.role,
         };
       },
     }),
@@ -62,9 +89,16 @@ export const authOptions: NextAuthOptions = {
     error: "/auth/error",
   },
   callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+      }
+      return token;
+    },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.sub!;
+        session.user.role = token.role as string;
       }
       return session;
     },

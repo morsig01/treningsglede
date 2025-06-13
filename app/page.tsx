@@ -4,8 +4,22 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 
+// Define our custom user type
+interface CustomUser {
+  id: string;
+  email?: string | null;
+  name?: string | null;
+  image?: string | null;
+  role?: string;
+}
+
+// Type assertion for session
+type CustomSession = {
+  user?: CustomUser;
+} | null;
+
 export default function HomePage() {
-  const { data: session } = useSession();
+  const { data: session } = useSession() as { data: CustomSession };
 
   return (
     <div className="bg-white">
@@ -29,42 +43,35 @@ export default function HomePage() {
             deg med å nå dine mål, 24/7.
           </p>
           <div className="mt-10">
-            {session ? (
+            <div className="space-x-4">
               <Link
-                href="/profile"
+                href="/tilbud"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-900 hover:bg-violet-800"
               >
-                Din Profil
-              </Link>
-            ) : (
-              <div className="space-x-4">
-                <Link
-                  href="/auth/register"
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-900 hover:bg-violet-800"
+                Våre Treningstilbud
+                <svg
+                  className="ml-2 -mr-1 h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  Kom i gang
-                  <svg
-                    className="ml-2 -mr-1 h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 7l5 5m0 0l-5 5m5-5H6"
-                    />
-                  </svg>
-                </Link>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </Link>
+              {!session && (
                 <Link
                   href="/auth/login"
                   className="inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-neutral-700"
                 >
                   Logg inn
                 </Link>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>

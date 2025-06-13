@@ -5,8 +5,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "../Logo";
 
+// Define our custom user type
+interface CustomUser {
+  id: string;
+  email?: string | null;
+  name?: string | null;
+  image?: string | null;
+  role?: string;
+}
+
+// Type assertion for session
+type CustomSession = {
+  user?: CustomUser;
+} | null;
+
 export default function Navigation() {
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession() as { data: CustomSession, status: string };
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
@@ -58,12 +72,12 @@ export default function Navigation() {
             ) : session ? (
               <div className="flex items-center space-x-4">
                 <Link
-                  href="/profile"
+                  href={session.user?.role === 'admin' ? "/admin" : "/profile"}
                   className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-violet-800 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-900"
                 >
-                <span>
-                  {session.user.name || session.user.email}
-                </span>
+                  <span>
+                    {session.user?.name || session.user?.email}
+                  </span>
                 </Link>
                 <button
                   onClick={() => signOut()}
